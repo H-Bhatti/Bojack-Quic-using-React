@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 
 function App() {
 
@@ -46,18 +46,59 @@ function App() {
     }
   ]
 
+const [currentQuestion, setQuestion] = useState(0);
+const [score, setScore] = useState(0);
+const [endQuiz, setEnd] = useState (false);
+
+const answerButtonClick=(isTrue)=> {
+
+  if ( isTrue==true)
+  {
+    setScore(score+1)
+  }
+
+
+  const newQuestion = currentQuestion+1
+  if (quizQuestions.length > newQuestion){
+    setQuestion (newQuestion)  
+    console.log(`new question ${newQuestion}`)
+  }
+  else {
+    //alert("apple")
+    setEnd (true)
+    console.log("endquiz "+endQuiz)
+  }
+}
+
+const resetGame=()=>{
+  setQuestion(0);
+  setScore(0);
+  setEnd(false)
+}
+
 
 
 
   return (
+
     <div className="quiz-container">
-      <h1>BOJACK QUIZ</h1>
-      <h2>{quizQuestions[0].question}</h2>
-      <button className='answerButton'>{quizQuestions[0].answers[0].answerText}</button>
-      <button className='answerButton'>{quizQuestions[0].answers[1].answerText}</button>
-      <button className='answerButton'>{quizQuestions[0].answers[2].answerText}</button>
-      <button className='answerButton'>{quizQuestions[0].answers[3].answerText}</button>
-      
+      {endQuiz ? (
+        <div>
+          <h1>
+            SCORE IS {score}
+          </h1>
+          <button className='answerButton' onClick={resetGame}>Reset Game</button>
+        </div>
+      ):( 
+        <div>
+          <h2>{quizQuestions[currentQuestion].question}</h2>
+          <div>
+          {quizQuestions[currentQuestion].answers.map((answers)=>(
+          <button className='answerButton' onClick={()=>answerButtonClick(answers.isTrue)}>{answers.answerText}</button>))}
+          </div>
+        </div>
+      )}  
+     
     </div>
   );
 }
