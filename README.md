@@ -1,5 +1,5 @@
 For viewing the finished project click the link 
-http://h-bhatti_bojackquizreactapp.surge.sh/
+http://H-Bhatti_BojackQuizReactApp2.surge.sh 
 
 
 
